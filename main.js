@@ -5,8 +5,8 @@ import fs from 'fs';
 import '@tensorflow/tfjs-backend-wasm';
 
 import { performance } from 'perf_hooks';
-const warmumIterations = 50;
-const iterations = 50;
+const fitItirations = 50;
+const predictIterations = 50;
 let fit_Values = [];
 let predict_Values = [];
 
@@ -24,7 +24,7 @@ tf.setBackend('wasm').then(() => {
 async function main() {
     benchmarkIterationFit();
     console.log("Fit iterations...");
-    for (let i = 0; i < warmumIterations; i++) {
+    for (let i = 0; i < fitItirations; i++) {
         const itStart = performance.now();
         await benchmarkIterationPredict();
         const itEnd = performance.now();
@@ -33,7 +33,7 @@ async function main() {
 
     console.log("Predict iterations...");
     let sum = 0;
-    for (let i = 0; i < iterations; i++) {
+    for (let i = 0; i < predictIterations; i++) {
         const itStart = performance.now();
         sum += await benchmarkIterationPredict();
         const itEnd = performance.now();
